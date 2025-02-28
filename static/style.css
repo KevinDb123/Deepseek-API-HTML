@@ -1,0 +1,380 @@
+.status-toast {
+     position: fixed;
+     top: 20px;
+     left: 50%;
+     transform: translateX(-50%);
+     background: rgba(141, 228, 255, 0.8);
+     color: white;
+     padding: 12px 24px;
+     border-radius: 8px;
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+     opacity: 0;
+     visibility: hidden;
+     transition: all 0.3s ease;
+     z-index: 1000;
+ }
+
+ .status-toast.show {
+     opacity: 1;
+     visibility: visible;
+ }
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #f0f4ff, #f8fbfb);
+    margin: 0;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* 主容器 */
+.container {
+    display: flex;
+    max-width: 80%;
+    margin: 40px auto;
+    padding: 32px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    border-top: 4px solid #67C23A;
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: translateY(-2px);
+}
+
+.model-adjustment {
+    width: 30%;
+    margin-right: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.model-adjustment textarea {
+    width: 90%;
+    height: 80%;
+    padding: 4%;
+    border-radius: 12px;
+    font-size: 20px;
+    border: 2px solid #e0e7ff;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    resize: none;
+    min-height: 120px;
+    font-family: fangsong;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+.model-adjustment textarea:focus {
+    border-color: #67C23A;
+    box-shadow: 0 4px 12px rgba(103, 194, 58, 0.2);
+    outline: none;
+}
+.model-adjustment button {
+    margin-top: 12px;
+    padding: 12px 24px;
+    background: #67C23A;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width:100%;
+}
+
+.model-adjustment button:hover {
+    background: #5daf34;
+}
+
+.chat-box-container {
+    width: 70%;
+}
+
+.chat-box {
+    height: 350px;
+    background: linear-gradient(145deg, #f8fafd, #ffffff);
+    border: 1px solid rgba(221, 221, 221, 0.3);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    padding: 16px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.chat-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background: rgba(240, 240, 240, 0.5);
+    border-radius: 4px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.message {
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeIn 0.4s ease forwards;
+    display: flex;
+}
+
+.message.user {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.message.computer {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.message .content {
+    max-width: 60%;
+    padding: 14px 18px;
+    border-radius: 15px;
+    line-height: 1.6;
+    font-size: 15px;
+    position: relative;
+    transition: transform 0.2s;
+    word-break: break-word;
+}
+
+.message.user .content {
+    background: linear-gradient(135deg, #67C23A, #5daf34);
+    color: white;
+    border-radius: 15px 15px 4px 15px;
+    box-shadow: 0 4px 12px rgba(103, 194, 58, 0.2);
+}
+
+.message.computer .content {
+    background: #f0f4ff;
+    color: #2c3e50;
+    border-radius: 15px 15px 15px 4px;
+    box-shadow: 0 4px 12px rgba(44, 62, 80, 0.1);
+}
+
+.title p {
+    font-size: 26px;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    font-family: 'FangSong', serif;
+    font-weight: bold;
+    color: white;
+}
+
+.title {
+    background: linear-gradient(135deg, #67C23A, #5daf34);
+    text-align: center;
+    padding: 20px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button-group {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.button-group button {
+    padding: 10px 24px;
+    border-radius: 10px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    background: #f0f4ff;
+    color: #2c3e50;
+}
+
+.button-group button.selected {
+    background: #67C23A;
+    color: white;
+}
+
+.button-group button:hover:not(.selected) {
+    background: #e1e8ff;
+    transform: translateY(-1px);
+}
+
+#question {
+    flex: 1; /* 输入框占据剩余空间 */
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: 2px solid #e0e7ff;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    min-width: 0; /* 防止 flex 布局溢出 */
+}
+#question-form {
+    display: flex;
+    gap: 12px; /* 输入框和按钮之间的间距 */
+    align-items: center; /* 垂直居中 */
+}
+#question:focus {
+    border-color: #67C23A;
+    box-shadow: 0 4px 12px rgba(103, 194, 58, 0.2);
+    outline: none;
+}
+
+button[type="submit"] {
+    flex-shrink: 0; /* 防止按钮缩小 */
+    padding: 12px 24px;
+    background: #67C23A;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(103, 194, 58, 0.3);
+}
+
+button[type="submit"]:hover {
+    background: #5daf34;
+    transform: translateY(-1px);
+}
+
+button[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 响应式布局 - 移动端适配 */
+@media (max-width: 768px) {
+    /* 调整主容器布局 */
+    .container {
+        flex-direction: column; /* 垂直排列 */
+        max-width: 95%; /* 增加宽度 */
+        padding: 16px; /* 减少内边距 */
+        margin: 20px auto; /* 减少外边距 */
+    }
+
+    /* 模型调整区域 */
+    .model-adjustment {
+        width: 100%; /* 占满宽度 */
+        margin-right: 0; /* 移除右边距 */
+        margin-bottom: 16px; /* 增加下边距 */
+    }
+
+    .model-adjustment textarea {
+        width: 100%; /* 占满宽度 */
+        height: 150px; /* 固定高度 */
+        padding: 12px; /* 调整内边距 */
+    }
+
+    /* 聊天区域 */
+    .chat-box-container {
+        width: 100%; /* 占满宽度 */
+    }
+
+    .chat-box {
+        height: 300px; /* 调整高度 */
+    }
+
+    /* 消息气泡 */
+    .message .content {
+        max-width: 80%; /* 增加最大宽度 */
+    }
+
+    /* 按钮组 */
+    .button-group {
+        flex-direction: column; /* 垂直排列 */
+        gap: 12px; /* 调整间距 */
+    }
+
+    .button-group button {
+        width: 100%; /* 占满宽度 */
+        padding: 12px; /* 调整内边距 */
+    }
+
+    /* 输入表单 */
+    #question-form {
+        flex-direction: column; /* 垂直排列 */
+        gap: 8px; /* 调整间距 */
+    }
+
+    #question {
+        width: 100%; /* 占满宽度 */
+        padding: 10px; /* 调整内边距 */
+        font-size: 13px;
+    }
+
+    button[type="submit"] {
+        width: 100%; /* 占满宽度 */
+        padding: 10px; /* 调整内边距 */
+        font-size: 13px;
+    }
+
+    /* 标题 */
+    .title p {
+        font-size: 22px; /* 缩小字体 */
+    }
+
+    .title {
+        padding: 16px; /* 调整内边距 */
+    }
+}
+
+/* 更小的屏幕适配 */
+@media (max-width: 480px) {
+    /* 进一步调整布局 */
+    .container {
+        padding: 12px; /* 减少内边距 */
+    }
+
+    .model-adjustment textarea {
+        height: 120px; /* 进一步缩小高度 */
+    }
+
+    .chat-box {
+        height: 250px; /* 进一步缩小高度 */
+    }
+    #question-form {
+        gap: 6px; /* 进一步缩小间距 */
+    }
+    /* 消息气泡 */
+    .message .content {
+        max-width: 90%; /* 进一步增加最大宽度 */
+        padding: 12px 16px; /* 调整内边距 */
+    }
+
+    /* 标题 */
+    .title p {
+        font-size: 20px; /* 进一步缩小字体 */
+    }
+
+    .title {
+        padding: 12px; /* 进一步调整内边距 */
+    }
+    #question {
+        padding: 8px; /* 进一步调整内边距 */
+        font-size: 12px; /* 进一步缩小字体 */
+    }
+
+    button[type="submit"] {
+        padding: 8px 12px; /* 进一步调整内边距 */
+        font-size: 12px; /* 进一步缩小字体 */
+    }
+}

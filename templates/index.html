@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepseek API版</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="status-toast" id="status-toast"></div>
+    <div class="title">
+        <p><strong>Deepseek API版</strong></p>
+    </div>
+    <div class="container">
+        <div class="model-adjustment">
+            <textarea
+                id="model-adjustment"
+                placeholder="输入模型调整内容..."
+                maxlength="500"
+                rows="3">你是deepseek人工智能中文小助手</textarea>
+            <button id="adjust-model-btn">调整模型</button>
+        </div>
+        <div class="chat-box-container">
+            <div class="chat-box" id="chat-box"></div>
+            <div class="button-group">
+                <button id="v3-btn" class="selected">V3-基础模型</button>
+                <button id="r1-btn">R1-推理模型</button>
+            </div>
+            <form id="question-form">
+                <input type="text" id="question" placeholder="输入你的问题..." maxlength="50">
+                <button type="submit">发送</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../static/script.js"></script>
+</body>
+</html>
